@@ -17,3 +17,14 @@ from .permissions import IsAdminOrReadOnly
 
 
 # Create your views here.
+def index(request):  # Home page
+    project = Project.objects.all()
+    # get the latest project from the database
+    latest_project = project[0]
+    # get project rating
+    rating = Rating.objects.filter(project_id=latest_project.id).first()
+    # print(latest_project.id)
+
+    return render(
+        request, "index.html", {"projects": project, "project_home": latest_project, "rating": rating}
+    )
