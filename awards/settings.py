@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'app',
     'cloudinary',
     'rest_framework',
+    'django_registration',
 ]
 
 MIDDLEWARE = [
