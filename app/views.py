@@ -28,3 +28,19 @@ def index(request):  # Home page
     return render(
         request, "index.html", {"projects": project, "project_home": latest_project, "rating": rating}
     )
+
+
+# single project page
+def project_details(request, project_id):
+    project = Project.objects.get(id=project_id)
+    # get project rating
+    rating = Rating.objects.filter(project=project)
+    return render(request, "project.html", {"project": project, "rating": rating})
+
+
+@login_required(login_url="/accounts/login/")
+def profile(request):  # view profile
+    current_user = request.user
+    profile = Profile.objects.filter(user_id=current_user.id).first()  # get profile
+    project = Project.objects.filter(user_id=current_user.id).all()  # get all projects
+    return render(request, "profile.html", {"profile": profile, "images": project})
